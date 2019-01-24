@@ -169,3 +169,12 @@ span{
   padding: 30px 50px;
   position: absolute;
 }
+
+#diceButton{
+  background: red;
+  color: #cdcdcd;
+}
+
+#message{
+  color: #cdcdcd
+}

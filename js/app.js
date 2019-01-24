@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     134, 133, 132, 131, 130, 129,
     143, 158, 173, 188, 203, 218,
     217, 201, 186, 171, 156,
-    141, 126, 125, 124, 123, 122, 121, 120,
+    141, 125, 124, 123, 122, 121, 120,
     105, 90, 91, 92, 93, 94, 95,
     81, 66, 51, 36, 21, 6, 7, 22, 37,
     52, 67, 82, 97, 112
@@ -143,6 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let gamePath;
     let playerName = document.getElementsByClassName("player-name")[index];
     let passBtn = document.getElementsByClassName("dice-btn")[1];
+    let dice = document.getElementById("diceButton");
+    let turn = document.getElementById("turnButton");
 
     if (color === "red") {
       counterYard = redCountersYard;
@@ -166,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //    Rolled a 6 --- Counters in home --- Counters in play --- Start Empty
     if (rd === 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
-      console.log("User has rolled a 6, has counters in the home AND play AND start");
+      console.log("User has rolled a 6, has counters in the home AND play but NOT start");
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. A counter has been taken from your home and is now in play.`;
       countersInPlay.push(counterYard.shift());
       var yardCounter = document.getElementsByClassName(countersInPlay[countersInPlay.length - 1])[0];
@@ -197,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     else if (rd === 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
+      document.getElementsByClassName("dice-btn")[1].disabled = true;
       console.log("User has rolled a 6, has counters in the home AND start but NONE in play");
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
       loopThroughGrid();
@@ -208,6 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //    Rolled a 6 --- No Counters in home -- Counters in play -- Start not empty
     else if (rd === 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
+      document.getElementsByClassName("dice-btn")[1].disabled = true;
       console.log("User has rolled a 6, has NO counters in the home, counters in start AND play");
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
       loopThroughGrid();
@@ -219,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //    Rolled a 6 --- No Counters in home -- Counters in play -- Start empty
     else if (rd === 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
+      document.getElementsByClassName("dice-btn")[1].disabled = true;
       console.log("User has rolled a 6, has NO counters in the home, counters in play, start IS empty");
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
       loopThroughGrid();
@@ -242,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //    Rolled < 6 --- Counters in home --- Counters in play --- Start Empty
     else if (rd < 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
+      document.getElementsByClassName("dice-btn")[1].disabled = true;
       console.log("User has rolled < 6 , ha counters in the home AND play, start IS empty");
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
       loopThroughGrid();
@@ -300,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let counterLoc = gamePath.indexOf(i);
                 if ((diceRollValue + counterLoc) < gamePath.length) {
                   if (gridBox[gamePath[counterLoc + diceRollValue]].innerHTML == `<div class="${color}-counter"></div>`) {
-                    console.log("You already have a counter in the position you want to move to.");
+                    document.getElementById("message").innerHTML = "You already have a counter in the position you want to move to.";
                   } else if (gridBox[gamePath[counterLoc + diceRollValue]].innerHTML != `<div class="${color}-counter"></div>` && gridBox[gamePath[counterLoc + diceRollValue]].innerHTML != "") {
                     console.log("someone else's counter is in this square.");
                     for (let m = 0; m < playingPlayers.length; m++) {
@@ -320,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
                               setNum = "four";
                             }
                             redCountersPlaying.shift();
-                            redCountersYard.push(redCountersPlaying.shift());
+                            redCountersYard.push(redCountersPlaying[0]);
                             elem = document.getElementsByClassName(`red-home-${setNum}`)[0];
                             elem.innerHTML = `<div class="${playingPlayers[m]}-counter red-${setNum}"></div>`; // Places counter to start positions
                           } else if (playingPlayers[m] == "blue") {
@@ -336,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
                               setNum = "four";
                             }
                             blueCountersPlaying.shift();
-                            blueCountersYard.push(blueCountersPlaying.shift());
+                            blueCountersYard.push(blueCountersPlaying[0]);
                             elem = document.getElementsByClassName(`blue-home-${setNum}`)[0];
                             elem.innerHTML = `<div class='${playingPlayers[m]}-counter blue-${setNum}'></div>`; // Places counter to start positions
                             console.log(blueCountersPlaying + " second");
@@ -353,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
                               setNum = "four";
                             }
                             yellowCountersPlaying.shift();
-                            yellowCountersYard.push(yellowCountersPlaying.shift());
+                            yellowCountersYard.push(yellowCountersPlaying[0]);
                             elem = document.getElementsByClassName(`yellow-home-${setNum}`)[0];
                             elem.innerHTML = `<div class='${playingPlayers[m]}-counter yellow-${setNum}'></div>`; // Places counter to start positions
                             console.log(yellowCountersPlaying + " second");
@@ -370,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
                               setNum = "four";
                             }
                             greenCountersPlaying.shift();
-                            greenCountersYard.push(greenCountersPlaying.shift());
+                            greenCountersYard.push(greenCountersPlaying[0]);
                             elem = document.getElementsByClassName(`green-home-${setNum}`)[0];
                             elem.innerHTML = `<div class='${playingPlayers[m]}-counter green-${setNum}'></div>`; // Places counter to start positions
                             console.log(greenCountersPlaying + " second");
@@ -387,28 +393,30 @@ document.addEventListener("DOMContentLoaded", function () {
                       if (color == "red") {
                         redHomeCount++
                         redCountersPlaying.shift();
-                        if (redHomeCount === 1) {
+                        if (redHomeCount === 4) {
                           document.getElementById("winner").innerHTML = "<p>Congratulations Red\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>";
                           document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
                       } else if (color = "blue") {
                         blueHomeCount++;
                         blueCountersPlaying.shift();
-                        if (blueHomeCount === 1) {
-                          document.getElementById("winner").innerHTML = "Congratulations Blue\n\nYou Won !!"
+                        if (blueHomeCount === 4) {
+                          document.getElementById("winner").innerHTML = "Congratulations Blue\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>"
                           document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
                       } else if (color = "yellow") {
                         yellowHomeCount++;
                         yellowCountersPlaying.shift();
                         if (yellowHomeCount === 4) {
-                          winner = "yellow"
+                          document.getElementById("winner").innerHTML = "Congratulations Yellow\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>"
+                          document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
                       } else {
                         greenHomeCount++;
                         greenCountersPlaying.shift();
                         if (greenHomeCount === 4) {
-                          winner = "green"
+                          document.getElementById("winner").innerHTML = "Congratulations Green\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>"
+                          document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
                       }
                     }, 2000);
@@ -422,6 +430,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
                 } else {
                   console.log("you dont have enough space.");
+                  document.getElementsByClassName("dice-btn")[1].disabled = false;
                   passBtn.addEventListener("click", function () {
                     document.getElementsByClassName("dice-btn")[0].disabled = false;
                     document.getElementsByClassName("dice-btn")[1].disabled = true;
@@ -436,20 +445,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function changePlayer() {
-      // console.log("player changed from: " + color)
+      document.getElementById("message").innerHTML = "";
       if (playingPlayers.indexOf(color) != playingPlayers.length - 1) {
         var newPlayer = playingPlayers[playingPlayers.indexOf(color) + 1]
         if (newPlayer == "blue") {
+          dice.style.background = "blue";
           for (let l = 0; l < playingPlayers.length; l++) {
             name[l].innerHTML = playingPlayers[l];
           }
           name[1].innerHTML = "blue it's your turn";
         } else if (newPlayer == "yellow") {
+          dice.style.background = "yellow";
           for (let l = 0; l < playingPlayers.length; l++) {
             name[l].innerHTML = playingPlayers[l];
           }
           name[2].innerHTML = "yellow it's your turn";
         } else {
+          dice.style.background = "green";
           currentPlayer = "green"
           for (let l = 0; l < playingPlayers.length; l++) {
             name[l].innerHTML = playingPlayers[l];
@@ -457,6 +469,7 @@ document.addEventListener("DOMContentLoaded", function () {
           name[3].innerHTML = "green it's your turn";
         }
       } else {
+        dice.style.background = "red";
         newPlayer = playingPlayers[0];
         for (let l = 0; l < playingPlayers.length; l++) {
           name[l].innerHTML = playingPlayers[l];
