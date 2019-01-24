@@ -13,6 +13,10 @@ p{
   margin: 0 auto;
 }
 
+.inner-con{
+  text-align: center;
+}
+
 .container h1, h2{
   text-align: center;
   margin: 0;
@@ -68,7 +72,7 @@ p{
 }
 
 .red{
-  background: rgba(255, 0, 0, 0.2);;
+  background: rgba(255, 0, 0, 0.3);
 }
 
 .red-counter{
@@ -79,7 +83,7 @@ p{
 }
 
 .blue{
-  background: blue;
+  background: rgba(0, 0, 255, 0.3);;
 }
 
 .blue-counter{
@@ -90,7 +94,7 @@ p{
 }
 
 .yellow{
-  background: yellow;
+  background: rgba(255, 238, 0, 0.3);;
 }
 
 .yellow-counter{
@@ -101,7 +105,7 @@ p{
 }
 
 .green{
-  background: green;
+  background: rgba(72, 255, 0, 0.3);;
 }
 
 .green-counter{
@@ -126,4 +130,42 @@ p{
 
 span{
   color: #cdcdcd;
+}
+
+.left p{
+  background:  rgba(255, 255, 255, 0.3);
+  margin: 0 20px 10px;
+  padding: 10px 5px;
+  border-radius: 0 0 5px 5px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+}
+
+.player-red{
+  border-top: red 10px solid;
+}
+.player-blue{
+  border-top: blue 10px solid;
+}
+.player-yellow{
+  border-top: yellow 10px solid;
+}
+.player-green{
+  border-top: green 10px solid;
+}
+
+.outer-winner{
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.inner-winner{
+  background: #cdcdcd;
+  border-radius: 10px;
+  width: 30%;
+  margin: 30vh 30vw;
+  padding: 30px 50px;
+  position: absolute;
 }
