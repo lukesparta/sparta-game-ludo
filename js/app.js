@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     143, 158, 173, 188, 203, 218,
     217, 202, 187, 172, 157, 142, 127, 112
   ]
-  let winner = "";
   let redHomeCount = 0;
   let blueHomeCount = 0;
   let yellowHomeCount = 0;
@@ -197,6 +196,16 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
+    else if (rd === 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
+      console.log("User has rolled a 6, has counters in the home AND start but NONE in play");
+      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+      loopThroughGrid();
+      passBtn.addEventListener("click", function () {
+        document.getElementsByClassName("dice-btn")[0].disabled = false;
+        document.getElementsByClassName("dice-btn")[1].disabled = true;
+      });
+    }
+
     //    Rolled a 6 --- No Counters in home -- Counters in play -- Start not empty
     else if (rd === 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
       console.log("User has rolled a 6, has NO counters in the home, counters in start AND play");
@@ -221,6 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //    Rolled any value --- Counters in home -- Counters in Play --- Start not empty
     else if (counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
+      document.getElementsByClassName("dice-btn")[1].disabled = true;
       console.log("User has rolled any value, has counters in the home, start AND play");
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
       loopThroughGrid();
@@ -331,15 +341,39 @@ document.addEventListener("DOMContentLoaded", function () {
                             elem.innerHTML = `<div class='${playingPlayers[m]}-counter blue-${setNum}'></div>`; // Places counter to start positions
                             console.log(blueCountersPlaying + " second");
                           } else if (playingPlayers[m] == "yellow") {
-                            setNum = yellowCountersYard.length + 1
+                            console.log("yellow counter");
+                            console.log(yellowCountersPlaying);
+                            if (yellowCountersYard.length === 3) {
+                              setNum = "one";
+                            } else if (yellowCountersYard.length === 2) {
+                              setNum = "two";
+                            } else if (yellowCountersYard.length === 1) {
+                              setNum = "three";
+                            } else if (yellowCountersYard.length === 0) {
+                              setNum = "four";
+                            }
                             yellowCountersPlaying.shift();
+                            yellowCountersYard.push(yellowCountersPlaying.shift());
                             elem = document.getElementsByClassName(`yellow-home-${setNum}`)[0];
-                            elem.innerHTML = `<div class='${playingPlayers[m]}-counter'></div>`; // Places counter to start positions
+                            elem.innerHTML = `<div class='${playingPlayers[m]}-counter yellow-${setNum}'></div>`; // Places counter to start positions
+                            console.log(yellowCountersPlaying + " second");
                           } else {
-                            setNum = greenCountersYard.length + 1
+                            console.log("green counter");
+                            console.log(greenCountersPlaying);
+                            if (greenCountersYard.length === 3) {
+                              setNum = "one";
+                            } else if (greenCountersYard.length === 2) {
+                              setNum = "two";
+                            } else if (greenCountersYard.length === 1) {
+                              setNum = "three";
+                            } else if (greenCountersYard.length === 0) {
+                              setNum = "four";
+                            }
                             greenCountersPlaying.shift();
+                            greenCountersYard.push(greenCountersPlaying.shift());
                             elem = document.getElementsByClassName(`green-home-${setNum}`)[0];
-                            elem.innerHTML = `<div class='${playingPlayers[m]}-counter'></div>`; // Places counter to start positions
+                            elem.innerHTML = `<div class='${playingPlayers[m]}-counter green-${setNum}'></div>`; // Places counter to start positions
+                            console.log(greenCountersPlaying + " second");
                           }
                         }
                       }
