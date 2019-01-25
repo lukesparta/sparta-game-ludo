@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var nextTurnBtn = document.getElementsByClassName("dice-btn")[1];
   diceBtn.addEventListener("click", function () {
     diceBtn.disabled = true;
-    nextTurnBtn.disabled = false;
+    nextTurnBtn.disabled = true;
     var name = document.getElementsByClassName("player-name");
     //If its Red Players Turn
     if (name[0].innerHTML === "red it's your turn") {
@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let turn = document.getElementById("turnButton");
 
     setTimeout(function() {
+      nextTurnBtn.disabled = false;
       if(rd === 6){
         diceSix.classList.remove("hidden");
       }
@@ -444,11 +445,35 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                       }
                     }, 2000);
-
                   } 
                   else {
+                    console.log("hello" +rd)
                     gridBox[gamePath[counterLoc + diceRollValue]].innerHTML = `<div class="${color}-counter"></div>`;
                     gridBox[i].innerHTML = ""; //clear grid item
+                    if(diceRollValue === 6){
+                      console.log("removed" +rd)
+                      diceSix.classList.add("hidden");
+                    }
+                    else if(diceRollValue === 5){
+                      console.log("removed" +diceRollValue)
+                      diceFive.classList.add("hidden");
+                    }
+                    else if(diceRollValue === 4){
+                      console.log("removed" +diceRollValue)
+                      diceFour.classList.add("hidden");
+                    }
+                    else if(diceRollValue === 3){
+                      console.log("removed" +diceRollValue)
+                      diceThree.classList.add("hidden");
+                    }
+                    else if(diceRollValue === 2){
+                      console.log("removed" +diceRollValue)
+                      diceTwo.classList.add("hidden");
+                    }
+                    else{
+                      console.log("removed" +diceRollValue)
+                      diceOne.classList.add("hidden");
+                    }
                     changePlayer();
                     document.getElementsByClassName("dice-btn")[1].disabled = true;
                     document.getElementsByClassName("dice-btn")[0].disabled = false;
