@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
   let blueHomeCount = 0;
   let yellowHomeCount = 0;
   let greenHomeCount = 0;
+  var diceOne = document.getElementById("diceOne");
+  var diceTwo = document.getElementById("diceTwo");
+  var diceThree = document.getElementById("diceThree");
+  var diceFour = document.getElementById("diceFour");
+  var diceFive = document.getElementById("diceFive");
+  var diceSix= document.getElementById("diceSix");
 
   const players = ["red", "blue", "yellow", "green"]
   const playingPlayers = [];
@@ -53,22 +59,18 @@ document.addEventListener("DOMContentLoaded", function () {
   //Red Counter Variables
   let redCountersYard = ["red-one", "red-two", "red-three", "red-four"];
   let redCountersPlaying = [];
-  let redCountersPos = [];
 
   //Blue Counter Variables
   let blueCountersYard = ["blue-one", "blue-two", "blue-three", "blue-four"];
   let blueCountersPlaying = [];
-  let blueCountersPos = [];
 
   //Yellow Counter Variables
   let yellowCountersYard = ["yellow-one", "yellow-two", "yellow-three", "yellow-four"];
   let yellowCountersPlaying = [];
-  let yellowCountersPos = [];
 
   //Green Counter Variables
   let greenCountersYard = ["green-one", "green-two", "green-three", "green-four"];
   let greenCountersPlaying = [];
-  let greenCountersPos = [];
 
   document.getElementsByClassName("dice-btn")[1].disabled = true;
 
@@ -81,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const startGame = document.getElementById("startGameBtn");
   let twoRadio = document.getElementById("twoRadio");
   let threeRadio = document.getElementById("threeRadio");
-  let fourRadio = document.getElementById("fourRadio");
 
   var name = document.getElementsByClassName("player-name");
   startGame.addEventListener("click", function () {
@@ -146,6 +147,27 @@ document.addEventListener("DOMContentLoaded", function () {
     let dice = document.getElementById("diceButton");
     let turn = document.getElementById("turnButton");
 
+    setTimeout(function() {
+      if(rd === 6){
+        diceSix.classList.remove("hidden");
+      }
+      else if(rd === 5){
+        diceFive.classList.remove("hidden");
+      }
+      else if(rd === 4){
+        diceFour.classList.remove("hidden");
+      }
+      else if(rd === 3){
+        diceThree.classList.remove("hidden");
+      }
+      else if(rd === 2){
+        diceTwo.classList.remove("hidden");
+      }
+      else{
+        diceOne.classList.remove("hidden");
+      }
+    }, 2000);
+    
     if (color === "red") {
       counterYard = redCountersYard;
       countersInPlay = redCountersPlaying;
@@ -168,66 +190,88 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //    Rolled a 6 --- Counters in home --- Counters in play --- Start Empty
     if (rd === 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. A counter has been taken from your home and is now in play.`;
-      clickCounter();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. A counter has been taken from your home and is now in play.`;
+        clickCounter();
+      }, 2000);
     }
 
     //    Rolled a 6 --- Counters in home --- No Counters in play --- Start empty
     else if (rd === 6 && counterYard.length > 0 && countersInPlay.length == 0 && gridBox[gamePath[4]].innerHTML == "") {
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. A counter has been taken from your home and is now in play.`;
-      clickCounter();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. A counter has been taken from your home and is now in play.`;
+        clickCounter();
+      }, 2000);
     }
 
     else if (rd === 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
       document.getElementsByClassName("dice-btn")[1].disabled = true;
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      listenForClick();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+        listenForClick();
+      }, 2000);
     }
 
     //    Rolled a 6 --- No Counters in home -- Counters in play -- Start not empty
     else if (rd === 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
       document.getElementsByClassName("dice-btn")[1].disabled = true;
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      listenForClick();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+        listenForClick();
+      }, 2000);
     }
 
     //    Rolled a 6 --- No Counters in home -- Counters in play -- Start empty
     else if (rd === 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
       document.getElementsByClassName("dice-btn")[1].disabled = true;
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      listenForClick();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+        listenForClick();
+      }, 2000);
     }
 
     //    Rolled any value --- Counters in home -- Counters in Play --- Start not empty
     else if (counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
       document.getElementsByClassName("dice-btn")[1].disabled = true;
+      setTimeout(function() {
       playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      listenForClick();
+      listenForClick(); 
+      }, 2000);
     }
 
     //    Rolled < 6 --- Counters in home --- Counters in play --- Start Empty
     else if (rd < 6 && counterYard.length > 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
       document.getElementsByClassName("dice-btn")[1].disabled = true;
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      listenForClick();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+        listenForClick();
+      }, 2000);
+      
     }
 
     //    Rolled < 6 --- Counters in home --- No Counters in play --- Start Empty
     else if (rd < 6 && counterYard.length > 0 && countersInPlay.length == 0 && gridBox[gamePath[4]].innerHTML == "") {
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. You have no counters in play and need to roll a 6 to release a counter from your home. Better luck next time.`;
-      clickTurnBtn();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. You have no counters in play and need to roll a 6 to release a counter from your home. Better luck next time.`;
+        clickTurnBtn();
+      }, 2000);
+      
     }
 
     //    Rolled < 6 --- NO counters in home --- Counters in play --- Start Empty
     else if (rd < 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML == "") {
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      clickTurnBtn();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+        clickTurnBtn();
+      }, 2000);
     }
 
     //    Rolled < 6 --- NO counters in home --- Counters in play --- Start Empty
     else if (rd < 6 && counterYard.length == 0 && countersInPlay.length > 0 && gridBox[gamePath[4]].innerHTML != "") {
-      playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
-      clickTurnBtn();
+      setTimeout(function() {
+        playerName.innerHTML = `\n\nYou Rolled a ${rd}. Please click a counter in play to move.`;
+        clickTurnBtn();
+      }, 2000);
     }
     else {
       debugger;
@@ -239,6 +283,24 @@ document.addEventListener("DOMContentLoaded", function () {
       passBtn.addEventListener("click", function () {
         document.getElementsByClassName("dice-btn")[0].disabled = false;
         document.getElementsByClassName("dice-btn")[1].disabled = true;
+        if(rd === 6){
+          diceSix.classList.add("hidden");
+        }
+        else if(rd === 5){
+          diceFive.classList.add("hidden");
+        }
+        else if(rd === 4){
+          diceFour.classList.add("hidden");
+        }
+        else if(rd === 3){
+          diceThree.classList.add("hidden");
+        }
+        else if(rd === 2){
+          diceTwo.classList.add("hidden");
+        }
+        else{
+          diceOne.classList.add("hidden");
+        }
         changePlayer();
       });
     }
@@ -346,11 +408,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     gridBox[i].innerHTML = "";
                     gridBox[gamePath[counterLoc + diceRollValue]].innerHTML = `<div class="${color}-counter"></div>`
                     setTimeout(function () {
+                      var winnerSound = new Audio("audio/winner.wav"); // buffers automatically when created
                       gridBox[gamePath[counterLoc + diceRollValue]].innerHTML = "";
                       if (color == "red") {
                         redHomeCount++
                         redCountersPlaying.shift();
                         if (redHomeCount === 4) {
+                          winnerSound.play();
                           document.getElementById("winner").innerHTML = "<p>Congratulations Red\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>";
                           document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
@@ -358,6 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         blueHomeCount++;
                         blueCountersPlaying.shift();
                         if (blueHomeCount === 4) {
+                          winnerSound.play();
                           document.getElementById("winner").innerHTML = "Congratulations Blue\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>"
                           document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
@@ -365,6 +430,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         yellowHomeCount++;
                         yellowCountersPlaying.shift();
                         if (yellowHomeCount === 4) {
+                          winnerSound.play();
                           document.getElementById("winner").innerHTML = "Congratulations Yellow\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>"
                           document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
@@ -372,6 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         greenHomeCount++;
                         greenCountersPlaying.shift();
                         if (greenHomeCount === 4) {
+                          winnerSound.play();
                           document.getElementById("winner").innerHTML = "Congratulations Green\n\nYou Won !!\n\n</p><br><br><button>Play Again</button>"
                           document.getElementsByClassName("outer-winner")[0].classList.remove("hidden");
                         }
@@ -438,7 +505,14 @@ document.addEventListener("DOMContentLoaded", function () {
   } //  END OF PlayerTurn FUNCTION
 
   function rollDice() {
+    var diceSound = new Audio("audio/dice.wav"); // buffers automatically when created
+    var diceGif = document.getElementById("dice-gif");
     var randomNumber = Math.floor(Math.random() * 6) + 1;
+    diceSound.play();
+    diceGif.classList.remove("hidden");
+    setTimeout(function() {
+      diceGif.classList.add("hidden");
+    }, 2000);
     diceRollValue = randomNumber;
     return randomNumber;
   }

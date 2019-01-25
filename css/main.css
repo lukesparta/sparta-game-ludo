@@ -178,3 +178,13 @@ span{
 #message{
   color: #cdcdcd
 }
+
+#dice-gif{
+  width: 162px;
+  height: 162px;
+}
+
+#dice-container > img{
+  width: 100px;
+  height: 100px;
+}
