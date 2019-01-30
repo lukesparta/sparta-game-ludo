@@ -115,6 +115,9 @@ p{
   height: 35px;
 }
 
+.bold{
+  font-weight: bolder;
+}
 
 .dice-btn{
   width: 100px;
